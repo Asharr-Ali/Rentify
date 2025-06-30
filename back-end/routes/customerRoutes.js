@@ -11,7 +11,7 @@ const { getAllCustomers,
 const { authenticateCustomer } = require ('../controllers/authenticateController');       
 
 router.post ('/login', authenticateCustomer);
-router.get ('/', asyncMiddleware(getAllCustomers));
+router.get ('/', [auth, admin], asyncMiddleware(getAllCustomers));
 router.post ('/', asyncMiddleware(createCustomer));
 router.get ('/me', auth, asyncMiddleware(getCustomer));
 

@@ -3,7 +3,6 @@ Joi.objectId = require('joi-objectid')(Joi);
 
 function validate (req) {
     const schema = new Joi.object ({
-        customer_id: Joi.objectId().required(),
         car_id: Joi.objectId().required(),
         bookingDate: Joi.date().required()
     });
@@ -25,7 +24,11 @@ const bookingSchema = new mongoose.Schema ({
     },
     bookingDate: {
         type: Date,
-        min: new Date(),
+        validate: {
+            validator: function (value) {
+                return value > Date.now();
+            }
+        },
         required: true        
     }
 });

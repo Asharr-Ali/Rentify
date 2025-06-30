@@ -8,6 +8,4 @@ require ('./startup/db')();
 require ('./startup/config')();
 
 const PORT = process.env.PORT || 4000;
-const server = app.listen ( PORT, () => winston.info (`Listening at Port ${PORT}...`));
-
-module.exports = server; //Only for Integartion Testing
+app.listen ( PORT, () => winston.info (`Listening at Port ${PORT}...`));

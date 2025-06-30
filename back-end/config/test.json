@@ -1,4 +1,0 @@
-{
-    "JWT_PRIVATE_KEY": "1234",
-    "db": "mongodb://localhost:27017/rentify_tests"
-}

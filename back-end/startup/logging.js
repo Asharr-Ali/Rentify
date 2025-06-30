@@ -1,21 +1,32 @@
-const winston = require ('winston');
-require ('winston-mongodb');
+const winston = require('winston');
+require('winston-mongodb');
 
 module.exports = function () {
-    //For UnCaught Exceptions
-    winston.exceptions.handle (new winston.transports.File ({ filename: 'uncaughtExceptions.log' }));
-    //For UnHandled Rejections
-    winston.rejections.handle (new winston.transports.File ({ filename: 'unhandledRejections.log' }));
+    // Handle Uncaught Exceptions (file only, not console)
+    winston.exceptions.handle(
+        new winston.transports.File({ filename: 'uncaughtExceptions.log' })
+    );
 
-    //Adding Log Files
-    winston.add (new winston.transports.File ({ filename: 'logfile.log' }));
-    winston.add (new winston.transports.MongoDB ({ db: 'mongodb://localhost/rentify' }));
+    // Handle Unhandled Promise Rejections
+    process.on('unhandledRejection', (ex) => {
+        throw ex;
+    });
 
-    //Transporting message to console after adding in LogFile
+    // Log to file
+    winston.add(new winston.transports.File({ filename: 'logfile.log' }));
+
+    // Log to MongoDB
+    winston.add(new winston.transports.MongoDB({
+        db: 'mongodb://localhost/rentify',
+        level: 'error'
+    }));
+
+    // Console
     winston.add(new winston.transports.Console({
         format: winston.format.combine(
+            winston.format(info => info.level === 'info' ? info : false)(),
             winston.format.colorize(),
             winston.format.simple()
         )
     }));
-}
+};
