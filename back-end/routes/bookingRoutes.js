@@ -12,6 +12,6 @@ const { addBooking,
 router.post ('/', auth, asyncMiddleware (addBooking));
 router.get ('/', auth, asyncMiddleware (futureBookings));
 router.get ('/history', auth, asyncMiddleware (pastBookings));
-router.delete ('/', auth, asyncMiddleware (removeBooking));
+router.delete ('/', [auth, admin], asyncMiddleware (removeBooking));
 
 module.exports = router;
