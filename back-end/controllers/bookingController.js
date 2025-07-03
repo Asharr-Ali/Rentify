@@ -1,10 +1,12 @@
 const { Booking, 
         validate } = require ('../models/booking');
 
+const { Car } = require ('../models/car');
+
 //Add Booking
 const addBooking = async function (req, res) {
     const { error } = validate (req.body);
-    if (error) return res.status(401).send (error.details[0].message);
+    if (error) return res.status(400).send (error.details[0].message);
 
     const reqBooking = {
         customer_id: req.user._id,
@@ -14,6 +16,12 @@ const addBooking = async function (req, res) {
 
     const dupBooking = await Booking.findOne (reqBooking);
     if (dupBooking) return res.status(400).send ('Booking Already Added!');
+
+    const car = await Car.findById (req.body.car_id);
+    if (!car) return res.status (404).send ('No Car Found!');
+    
+    car.isAvailable = false;
+    await car.save ();
 
     const booking = new Booking (reqBooking);
     await booking.save();
