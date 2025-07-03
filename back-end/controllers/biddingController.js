@@ -40,6 +40,33 @@ const addBidding = async function (req, res) {
     res.send ('Successfully Bid this Car!');
 }
 
+//Get Car Biddings of a Particular Customer 
+const getCarBiddingsByCustomerID = async function (req, res) {
+    if (!mongoose.Types.ObjectId.isValid (req.body._id)) return res.status (400).send ('Invalid Customer ID!');
+
+    const biddings = await Bidding.find ({ customer_id: req.body._id })
+                    .populate ('car_id', 'brand model year imageURL seatingCapacity')
+                    .sort ({ createdAt: -1 });
+    
+    if (!biddings.length) return res.status (404).send ('No Bidding found for this Customer!');
+
+    res.send (biddings);
+}
+
+//Get Car Biddings of a Particular Admin 
+const getCarBiddingsByAdminID = async function (req, res) {
+    const cars = await Car.find ({ addedBy: req.user._id });
+    const carIDs = cars.map (car => car._id);
+    if (!carIDs.length) return res.status (404).send ('No Car Added By User!');
+    
+    const biddings = await Bidding.find ({ car_id: { $in: carIDs } })
+                                    .populate ('customer_id', 'name email phone')
+                                    .populate ('car_id', 'brand model year imageURL seatingCapacity')
+                                    .sort ({ createdAt: -1 });
+    if (!biddings.length) return res.status (404).send ('No Biddings for User Added Cars!');
+    res.send (biddings);
+}
+
 //Approve Bidding
 const approveBidding = async function (req, res) {
     if (!mongoose.Types.ObjectId.isValid (req.body._id)) return res.status (400).send ('Invalid Bidding ID!');
@@ -69,5 +96,7 @@ const rejectBidding = async function (req, res) {
 }
 
 module.exports = { addBidding,
+                    getCarBiddingsByCustomerID,
+                    getCarBiddingsByAdminID,
                     approveBidding,
                     rejectBidding };
