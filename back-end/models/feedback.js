@@ -3,7 +3,6 @@ Joi.objectId = require('joi-objectid')(Joi);
 
 function validate (req) {
     const schema = new Joi.object ({
-        customer_id: Joi.objectId().required(),
         car_id: Joi.objectId().required(),
         rating: Joi.number().min(1).max(10).required(),
         review: Joi.string().min(5).max(50).required()

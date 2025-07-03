@@ -11,7 +11,8 @@ const addCar = async function (req, res) {
         brand: req.body.brand,
         model: req.body.model,
         year: req.body.year,
-        transmission: req.body.transmission
+        transmission: req.body.transmission,
+        pricePerHour: req.body.pricePerHour,
     });
     if (dupCar) return res.status(400).send('Car Already Added!');
 
@@ -22,11 +23,19 @@ const addCar = async function (req, res) {
         transmission: req.body.transmission,
         fuelType: req.body.fuelType,
         pricePerHour: req.body.pricePerHour,
-        imageURL: req.body.imageURL
+        imageURL: req.body.imageURL,
+        addedBy: req.user._id
     });
     await car.save();
     res.send ('Car Added Successfully!');
-}        
+}   
+
+//Get All Available Cars
+const getAvailableCars = async function (req, res) {
+    const cars = await Car.find ({ isAvailable: true });
+    if (!cars.length) return res.status (404).send ('No Cars Available for Rental!');
+    res.send (cars);
+}
 
 //Update Car Details By CarID
 const updateCar = async function (req, res) {
@@ -51,5 +60,6 @@ const removeCar = async function (req, res) {
 
 
 module.exports = { addCar,
+                    getAvailableCars,
                     updateCar, 
                     removeCar };

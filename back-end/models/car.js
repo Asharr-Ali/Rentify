@@ -77,6 +77,11 @@ const carSchema = new mongoose.Schema ({
     description: {
         type: String,
         default: 'Experience comfort, performance, and reliability with this well-maintained vehicle — perfect for city drives and long journeys. Featuring a modern design, fuel-efficient engine, spacious interior, and advanced safety features, this car ensures a smooth and enjoyable ride every time.'
+    },
+    addedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Customer',
+        required: true
     }
 }, {
     timestamps: true
