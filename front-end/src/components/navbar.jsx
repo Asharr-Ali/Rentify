@@ -10,10 +10,10 @@ const Navbar = () => {
             <div className='hidden md:p-4 md:text-white md:bg-black md:flex md:justify-between'>
                 <div className='ml-10'>
                     <span className='text-3xl font-bold cursor-pointer'>Rentify</span>
-                    <button className='text-xl ml-10 px-2 py-0.5 cursor-pointer hover:border hover:rounded-2xl hover:bg-gray-800 hover:border-black '>About</button>
+                    <button className='text-xl ml-10 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>About</button>
                 </div>
                 <div className='mr-20'>
-                <button className='text-xl mr-10 px-2 py-0.5 cursor-pointer hover:border hover:rounded-2xl hover:bg-gray-800 hover:border-black '>Log in</button>
+                <button className='text-xl mr-10 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800 '>Log in</button>
                     <button className='border p-1 rounded-xl bg-white text-black cursor-pointer hover:bg-amber-50'>Sign up</button>
                 </div>
             </div>

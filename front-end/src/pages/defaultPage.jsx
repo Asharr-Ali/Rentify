@@ -1,10 +1,13 @@
 import Navbar from "../components/navbar";
+import Footer from "../components/footer";
 
 const DefaultPage = () => {
     return ( 
         <div>
-            <Navbar />
-            <div className="flex flex-col xl:flex-row md:gap-10 mb-30 ">
+            <div className="fixed top-0 left-0 w-full z-50 bg-white shadow">
+                <Navbar />
+            </div>
+            <div className="pt-20 flex flex-col xl:flex-row md:gap-10 mb-30 ">
                 <div>
                     <div className="mt-20 ml-10 md:ml-32 md:mr-32 font-bold md:text-5xl text-3xl">Go Anywhere with Rentify</div>
                     <div className="md:text-2xl text-justify md:w-[500px] m-10 md:ml-32 md:mr-32 text-gray-700">Your one-stop platform for hassle-free rentals.
@@ -82,6 +85,8 @@ const DefaultPage = () => {
                     <img src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_1152,w_1152/v1696243819/assets/18/34e6fd-33e3-4c95-ad7a-f484a8c812d7/original/fleet-management.jpg"></img>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }
