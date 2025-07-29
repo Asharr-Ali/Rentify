@@ -19,7 +19,7 @@ const DefaultPage = () => {
                         See Prices
                     </button>
                 </div>
-                <div className="mt-5 md:mt-20 xl:w-[600px] rounded-2xl">
+                <div className="mt-5 xl:mr-20 md:mt-20 xl:w-[600px] rounded-2xl">
                     <img src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_896,w_1344/v1712926828/assets/a3/cf8564-e2a6-418c-b9b0-65dd285c100b/original/3-2-ridesharing-new.jpg"></img>
                 </div>
             </div>
