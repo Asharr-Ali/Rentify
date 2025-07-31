@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router';
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
@@ -9,12 +10,12 @@ const Navbar = () => {
         <nav>
             <div className='hidden md:p-4 md:text-white md:bg-black md:flex md:justify-between'>
                 <div className='ml-10'>
-                    <span className='text-3xl font-bold cursor-pointer'>Rentify</span>
+                    <Link to = '/' className='text-3xl font-bold cursor-pointer'>Rentify</Link>
                     <button className='text-xl ml-10 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>About</button>
                 </div>
                 <div className='mr-20'>
-                <button className='text-xl mr-10 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800 '>Log in</button>
-                    <button className='border p-1 rounded-xl bg-white text-black cursor-pointer hover:bg-amber-50'>Sign up</button>
+                    <Link to = '/login' className='text-xl mr-10 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800 '>Log in</Link>
+                    <Link to = '/signup' className='border p-1 rounded-xl bg-white text-black cursor-pointer hover:bg-amber-50'>Sign up</Link>
                 </div>
             </div>
             <div className='md:hidden p-4 bg-black flex justify-between text-white'>
