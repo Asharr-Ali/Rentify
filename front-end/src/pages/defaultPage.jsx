@@ -17,7 +17,7 @@ const DefaultPage = () => {
                         Manage your rentals, track activity, and stay organized — all online.
                         Simple. Secure. Smart. Start renting the easy way today.
                     </div>
-                    <Link to = '/login' className="ml-10 md:ml-32 p-4 rounded-xl border text-white text-xl bg-black cursor-pointer hover:bg-gray-900">
+                    <Link to = '/login' className="inline-block ml-10 md:ml-32 p-4 rounded-xl border text-white text-xl bg-black cursor-pointer hover:bg-gray-900">
                         See Prices
                     </Link>
                 </div>
@@ -31,10 +31,10 @@ const DefaultPage = () => {
                     <div className="mt-20 ml-10 md:ml-32 md:mr-32 font-bold md:text-5xl text-3xl">Log in to see your account details</div>
                     <div className="md:text-2xl text-justify md:w-[500px] m-10 md:ml-32 md:mr-32 text-gray-700">View past trips, tailored suggestions, support resources, and more.
                     </div>
-                    <Link to = '/login' className="ml-10 md:ml-32 p-4 rounded-xl border text-white text-xl bg-black cursor-pointer hover:bg-gray-900">
+                    <Link to = '/login' className="inline-block ml-10 md:ml-32 p-4 rounded-xl border text-white text-xl bg-black cursor-pointer hover:bg-gray-900">
                         Log in to your account
                     </Link >
-                    <Link to = '/signup' className="ml-10 md:ml-32 p-4 border-b-1 text-xl cursor-pointer">
+                    <Link to = '/signup' className="inline-block ml-10 md:ml-32 p-4 border-b-1 text-xl cursor-pointer">
                         Create an Account
                     </Link>
                 </div>
@@ -51,10 +51,10 @@ const DefaultPage = () => {
                     <div className="mt-20 ml-10 md:ml-32 md:mr-32 font-bold md:text-5xl text-3xl">Drive when you want, make what you need</div>
                     <div className="md:text-2xl text-justify md:w-[500px] m-10 md:ml-32 md:mr-32 text-gray-700">Make money on your schedule with deliveries or rides—or both. You can use choose a rental through Rentify.
                     </div>
-                    <Link to = '/signup' className="ml-10 md:ml-32 p-4 rounded-xl border text-white text-xl bg-black cursor-pointer hover:bg-gray-900">
+                    <Link to = '/signup' className="inline-block ml-10 md:ml-32 p-4 rounded-xl border text-white text-xl bg-black cursor-pointer hover:bg-gray-900">
                         Get Started
                     </Link>
-                    <Link to = '/login' className="ml-10 md:ml-32 p-4 border-b-1 text-xl cursor-pointer">
+                    <Link to = '/login' className="inline-block ml-10 md:ml-32 p-4 border-b-1 text-xl cursor-pointer">
                         Already have an account? Sign in
                     </Link>
                 </div>
@@ -65,7 +65,7 @@ const DefaultPage = () => {
                     <div className="mt-20 ml-10 md:ml-32 md:mr-32 font-bold md:text-5xl text-3xl">The Rentify you know, reimagined for business</div>
                     <div className="md:text-2xl text-justify md:w-[500px] m-10 md:ml-32 md:mr-32 text-gray-700">Rentify for Business is a platform for managing global rides and meals, and local deliveries, for companies of any size.
                     </div>
-                    <Link to = '/signup' className="ml-10 md:ml-32 p-4 rounded-xl border text-white text-xl bg-black cursor-pointer hover:bg-gray-900">
+                    <Link to = '/signup' className="inline-block ml-10 md:ml-32 p-4 rounded-xl border text-white text-xl bg-black cursor-pointer hover:bg-gray-900">
                         Get Started
                     </Link>
                 </div>
@@ -79,7 +79,7 @@ const DefaultPage = () => {
                     <div className="mt-20 ml-10 md:ml-32 md:mr-32 font-bold md:text-5xl text-3xl">Make money by renting out your car</div>
                     <div className="md:text-2xl text-justify md:w-[500px] m-10 md:ml-32 md:mr-32 text-gray-700">Connect with thousands of drivers and earn more per week with Rentify.
                     </div>
-                    <Link to = '/signup' className="ml-10 md:ml-32 p-4 rounded-xl border text-white text-xl bg-black cursor-pointer hover:bg-gray-900">
+                    <Link to = '/signup' className="inline-block ml-10 md:ml-32 p-4 rounded-xl border text-white text-xl bg-black cursor-pointer hover:bg-gray-900">
                         Get Started
                     </Link>
                 </div>

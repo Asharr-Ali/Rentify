@@ -7,6 +7,13 @@ import DefaultPage from "./pages/defaultPage";
 import LoginPage from './pages/loginPage';
 import SignupPage from './pages/signupPage';
 
+//Admin Pages
+import AdminHomePage from './pages/admin/adminHomePage';
+import RegisterCar from './pages/admin/registerCarPage';
+
+//Customer Pages
+import CustomerHomePage from './pages/customer/customerHomePage';
+
 function App() {
 
   return (
@@ -26,6 +33,9 @@ function App() {
         <Route path = "/" element = {<DefaultPage />} />        
         <Route path = "/login" element = {<LoginPage />} />        
         <Route path = "/signup" element = {<SignupPage />} />        
+        <Route path = "/admin/home" element = {<AdminHomePage />} />        
+        <Route path = "/admin/register-car" element = {<RegisterCar />} />        
+        <Route path = "/customer/home" element = {<CustomerHomePage />} />        
       </Routes>
     </React.Fragment>
   );

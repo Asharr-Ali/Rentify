@@ -31,7 +31,7 @@ const createCustomer = async function (req, res) {
     await customer.save ();
 
     const token = customer.generateAuthToken();
-    res.header('x-auth-token', token).send (_.pick(customer, ['name', 'email']));
+    res.header('x-auth-token', token).header('access-control-expose-headers', 'x-auth-token').send (_.pick(customer, ['name', 'email']));
 }
 
 //Get Customer Details 

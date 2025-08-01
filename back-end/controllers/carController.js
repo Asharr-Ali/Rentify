@@ -21,11 +21,16 @@ const addCar = async function (req, res) {
         model: req.body.model, 
         year: req.body.year, 
         transmission: req.body.transmission,
+        seatingCapacity: req.body.seatingCapacity,
         fuelType: req.body.fuelType,
         pricePerHour: req.body.pricePerHour,
+        location: req.body.location,
         imageURL: req.body.imageURL,
         addedBy: req.user._id
     });
+
+    if (req.body.description) car.description = req.body.description;
+
     await car.save();
     res.send ('Car Added Successfully!');
 }   
@@ -34,6 +39,13 @@ const addCar = async function (req, res) {
 const getAvailableCars = async function (req, res) {
     const cars = await Car.find ({ isAvailable: true });
     if (!cars.length) return res.status (404).send ('No Cars Available for Rental!');
+    res.send (cars);
+}
+
+//Get Admin Added Cars
+const getAdminAddedCars = async function (req, res) {
+    const cars = await Car.find ({ addedBy: req.user._id, isAvailable: true });
+    if (!cars.length) return res.status (404).send ('No Cars Added!');
     res.send (cars);
 }
 
@@ -61,5 +73,6 @@ const removeCar = async function (req, res) {
 
 module.exports = { addCar,
                     getAvailableCars,
+                    getAdminAddedCars,
                     updateCar, 
                     removeCar };

@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import Joi  from 'joi-browser';
+import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 import { renderInputField, renderOptionsField, validateFunction } from '../components/services/formFunctions';
+import { decodeToken } from '../components/services/decodeToken';
 
 import Navbar from '../components/navbar';
 import Footer from '../components/footer';
 import ScrollToTop from '../components/services/scrollToTop';
 
+const apiEndPoint = 'http://localhost:4000/api/';
+
 const LoginPage = () => {
+    const Navigate = useNavigate ();
+
     const [formData, setFormData] = useState ({
         email: '',
         password: '',
@@ -22,13 +29,22 @@ const LoginPage = () => {
         isAdmin: Joi.boolean().required()
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!validateFunction(formData, schema)) {
-            console.log (formData);
-            console.log ('Submitted!');
-        }   
+        if (validateFunction(formData, schema)) return;
+
+        try {
+            const { data: jwt } = await axios.post (`${apiEndPoint}customer/login`, formData);
+            localStorage.setItem ('token', jwt);
+            toast.success ('User Logged In Successfully!');
+            decodeToken().isAdmin ?  setTimeout (() => { Navigate ('/admin/home', { replace: true }) }, 3000) : setTimeout (() => { Navigate ('/customer/home', { replace: true }) }, 3000);
+        }
+        catch (err) {
+            if (err.response && err.response.status === 400) toast.error ('Either Email or Password is Invalid!');
+            else if (err.response && err.response.status === 404) toast.error ('No Such User Found!');
+            else toast.error ('Something went wrong. Try Again!');
+        }
     }
 
     return (

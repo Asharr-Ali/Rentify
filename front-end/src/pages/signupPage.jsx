@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Joi  from 'joi-browser';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 import { renderInputField, renderOptionsField, validateFunction } from '../components/services/formFunctions';
+import { decodeToken } from '../components/services/decodeToken';
 
 import Navbar from '../components/navbar';
 import Footer from '../components/footer';
@@ -12,6 +14,8 @@ import ScrollToTop from '../components/services/scrollToTop';
 const apiEndPoint = 'http://localhost:4000/api/';
 
 const SignupPage = () => {
+    const Navigate = useNavigate();
+
     const [formData, setFormData] = useState ({
         name: '',
         password: '',
@@ -35,9 +39,10 @@ const SignupPage = () => {
         if (validateFunction(formData, schema)) return;
 
         try {
-            console.log (formData);
-            await axios.post (`${apiEndPoint}customer`, formData);
+            const { headers } = await axios.post (`${apiEndPoint}customer`, formData);
+            localStorage.setItem ('token', headers['x-auth-token']);
             toast.success ('User Registered Successfully!');
+            decodeToken().isAdmin ?  setTimeout (() => { Navigate ('/admin/home', { replace: true }) }, 3000) : setTimeout (() => { Navigate ('/customer/home', { replace: true }) }, 3000);
         }
         catch (err) {
             if (err.response && err.response.status === 400) toast.error ('User Already Registered with this Email!');

@@ -2,6 +2,8 @@ import Joi from "joi-browser";
 
 const validateProperty = (name, value, schema, setErrors) => {
     const derivedSchema = { [name]: schema[name] };
+    if (!derivedSchema[name]) return;
+
     const object = { [name]: value };
     const { error } = Joi.validate (object, derivedSchema);
 
@@ -29,7 +31,7 @@ export const handleChange = ({ currentTarget: input }, schema, setErrors, formDa
 }
 
 export const validateFunction = (formData, schema) => {
-    const { error } = Joi.validate (formData, schema, { abortEarly: false });
+    const { error } = Joi.validate (formData, schema, { abortEarly: false, allowUnknown: true });
     return error;
 }
 
