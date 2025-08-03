@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 import CustomerNavbar from '../../components/customerNavbar';
 import Footer from '../../components/footer';
@@ -10,6 +11,8 @@ import CustomerAuth from './customerAuth';
 const apiEndPoint = 'http://localhost:4000/api';
 
 const CustomerHomePage = () => {
+    const Navigate = useNavigate();
+
     const user = CustomerAuth ();
     if (!user) return null;
 
@@ -32,11 +35,13 @@ const CustomerHomePage = () => {
 
     return (
         <>
-            <CustomerNavbar user = {user} />
+            <div className="fixed top-0 left-0 w-full z-50 bg-white shadow">
+                <CustomerNavbar user = {user} />
+            </div>
             {
                 cars.length ? (
                     <React.Fragment>
-                        <div className='italic mt-10 text-4xl text-center font-extrabold'>Available Cars</div>
+                        <div className='italic mt-28 text-4xl text-center font-extrabold'>Available Cars For Rental</div>
                         <div className='m-10 md:m-10 grid md:grid-cols-2 lg:grid-cols-3 gap-10'>
                             {
                                 cars.map (car => (
@@ -62,6 +67,7 @@ const CustomerHomePage = () => {
                                         <div className='text-xl italic font-bold animate-bounce'>
                                             {car.pricePerHour} $/hour
                                         </div>
+                                        <button onClick={() => Navigate("/customer/bidding-form", { state: { car } })} className='mt-5 hover:bg-gray-700 border rounded-2xl px-3 font-bold cursor-pointer'>Bid this Car</button>
                                     </div>
                                 ))
                             }

@@ -37,6 +37,7 @@ const LoginPage = () => {
         try {
             const { data: jwt } = await axios.post (`${apiEndPoint}customer/login`, formData);
             localStorage.setItem ('token', jwt);
+            axios.defaults.headers.common['x-auth-token'] = jwt;
             toast.success ('User Logged In Successfully!');
             decodeToken().isAdmin ?  setTimeout (() => { Navigate ('/admin/home', { replace: true }) }, 3000) : setTimeout (() => { Navigate ('/customer/home', { replace: true }) }, 3000);
         }

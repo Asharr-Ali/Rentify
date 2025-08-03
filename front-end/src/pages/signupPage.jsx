@@ -41,6 +41,7 @@ const SignupPage = () => {
         try {
             const { headers } = await axios.post (`${apiEndPoint}customer`, formData);
             localStorage.setItem ('token', headers['x-auth-token']);
+            axios.defaults.headers.common['x-auth-token'] = headers['x-auth-token'];
             toast.success ('User Registered Successfully!');
             decodeToken().isAdmin ?  setTimeout (() => { Navigate ('/admin/home', { replace: true }) }, 3000) : setTimeout (() => { Navigate ('/customer/home', { replace: true }) }, 3000);
         }

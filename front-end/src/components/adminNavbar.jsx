@@ -1,11 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 import { FaBars, FaTimes } from "react-icons/fa";
 
+import LogOut from '../components/services/logOut';
+
 const AdminNavbar = ({ user }) => {
     const [menuIcon, setMenuIcon] = useState (false);
+    const Navigate = useNavigate();
 
     return ( 
         <nav>
@@ -21,7 +24,7 @@ const AdminNavbar = ({ user }) => {
                 <div className='mr-20'>
                     <span className='italic inline-block text-3xl mr-10 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800 font-extrabold'>{user.name}</span>
                     <span className='italic inline-block text-2xl mr-10 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800 font-extrabold'>Admin</span>
-                    <Link to = '/logout' className='italic inline-block border p-1 rounded-xl bg-white text-black cursor-pointer hover:bg-amber-50'>Log out</Link>
+                    <button onClick={() => LogOut (Navigate)} className='italic inline-block border p-1 rounded-xl bg-white text-black cursor-pointer hover:bg-amber-50'>Log out</button>
                 </div>
             </div>
             <div className='2xl:hidden p-4 bg-black flex justify-between text-white'>
@@ -40,7 +43,7 @@ const AdminNavbar = ({ user }) => {
                         <Link to = '/upcoming-bookings'>Upcoming Bookings</Link>
                         <Link to = '/profile'>My Profile</Link>
                         <Link to = '/about'>About</Link>
-                        <Link to = '/logout'>Log out</Link>
+                        <button className='text-3xl text-red-700 font-extrabold' onClick={() => LogOut (Navigate)}>Log out</button>
                     </div>
                 )
             }

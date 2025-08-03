@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 import AdminNavbar from '../../components/adminNavbar';
 import Footer from '../../components/footer';
@@ -10,6 +11,8 @@ import AdminAuth from './adminAuth';
 const apiEndPoint = 'http://localhost:4000/api';
 
 const AdminHomePage = () => {
+    const Navigate = useNavigate ();
+
     const user = AdminAuth ();
     if (!user) return null;
 
@@ -20,10 +23,9 @@ const AdminHomePage = () => {
             try {
                 const { data: cars } = await axios.get (`${apiEndPoint}/car/admin-cars`);
                 setCars (cars);
-                console.log (cars)
             }
             catch (err) {
-                if (err.response && err.response === 404) setCars ([]);
+                if (err.response && err.response.status === 404) setCars ([]);
                 else toast.error ('Something went wrong. Try Again!');
             }
         }
@@ -31,13 +33,35 @@ const AdminHomePage = () => {
 
     }, []);
 
+    const handleRemoveCar = async (CarID) => {
+        const totalCars = [...cars];
+        const filteredCars = cars.filter (car => car._id !== CarID);
+        setCars (filteredCars);
+
+        const body = { _id: CarID };
+
+        try {
+            await axios.delete (`${apiEndPoint}/car`, {
+                data: body
+            });
+            toast.success ('Car Deleted Successfully!');
+        }
+        catch (err) {
+            if (err.response && err.reponse.status === 404) toast.error ('No Such Car Found!');
+            else toast.error ('Something went wrong. Try Again!');
+            setCars (totalCars);
+        }
+    }
+
     return (
         <>
-            <AdminNavbar user = {user} />
+            <div className="fixed top-0 left-0 w-full z-50 bg-white shadow">
+                <AdminNavbar user = {user} />
+            </div>
             {
                 cars.length ? (
                     <React.Fragment>
-                        <div className='italic mt-10 text-4xl text-center font-extrabold'>Your Added Cars For Rental</div>
+                        <div className='italic mt-28 text-4xl text-center font-extrabold'>Your Added Cars For Rental</div>
                         <div className='m-10 md:m-10 grid md:grid-cols-2 lg:grid-cols-3 gap-10'>
                             {
                                 cars.map (car => (
@@ -64,10 +88,10 @@ const AdminHomePage = () => {
                                             {car.pricePerHour} $/hour
                                         </div>
                                         <div className='grid grid-cols-1 md:grid-cols-2 mt-5 gap-4'>
-                                            <button className='border px-0.5 md:px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-900'>
+                                            <button onClick={() => Navigate ('/admin/update-car', { state: { car } })} className='border px-0.5 md:px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-900'>
                                                 Update Car  
                                             </button>
-                                            <button className='border px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-900'>
+                                            <button onClick={() => handleRemoveCar(car._id)} className='border px-2 py-1 rounded-2xl cursor-pointer hover:bg-gray-900'>
                                                 Remove Car
                                             </button>
                                         </div>

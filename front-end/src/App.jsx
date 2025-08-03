@@ -6,13 +6,17 @@ import { ToastContainer } from 'react-toastify';
 import DefaultPage from "./pages/defaultPage";
 import LoginPage from './pages/loginPage';
 import SignupPage from './pages/signupPage';
+import MyProfile from './pages/profile';
+import About from './pages/about';
 
 //Admin Pages
 import AdminHomePage from './pages/admin/adminHomePage';
 import RegisterCar from './pages/admin/registerCarPage';
+import UpdateCar from './pages/admin/updateCarPage';
 
 //Customer Pages
 import CustomerHomePage from './pages/customer/customerHomePage';
+import CustomerBiddingForm from './pages/customer/customerBiddingForm';
 
 function App() {
 
@@ -32,10 +36,16 @@ function App() {
       <Routes>
         <Route path = "/" element = {<DefaultPage />} />        
         <Route path = "/login" element = {<LoginPage />} />        
-        <Route path = "/signup" element = {<SignupPage />} />        
+        <Route path = "/signup" element = {<SignupPage />} /> 
+        <Route path = "/profile" element = {<MyProfile />} /> 
+        <Route path = "/about" element = {<About />} /> 
+
         <Route path = "/admin/home" element = {<AdminHomePage />} />        
         <Route path = "/admin/register-car" element = {<RegisterCar />} />        
+        <Route path = "/admin/update-car" element = {<UpdateCar />} />   
+             
         <Route path = "/customer/home" element = {<CustomerHomePage />} />        
+        <Route path = "/customer/bidding-form" element = {<CustomerBiddingForm />} />        
       </Routes>
     </React.Fragment>
   );
