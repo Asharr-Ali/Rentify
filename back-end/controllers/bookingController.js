@@ -3,19 +3,24 @@ const { Booking,
 
 const { Car } = require ('../models/car');
 
+const mongoose = require ('mongoose');
+
 //Add Booking
 const addBooking = async function (req, res) {
     const { error } = validate (req.body);
     if (error) return res.status(400).send (error.details[0].message);
 
-    const reqBooking = {
-        customer_id: req.user._id,
+    const isOverlap = await Booking.findOne({
         car_id: req.body.car_id,
-        bookingDate: new Date (req.body.bookingDate)
-    };
+        $or: [
+          {
+            bookingDateStartTime: { $lt: new Date(req.body.bookingDateEndTime) },
+            bookingDateEndTime: { $gt: new Date(req.body.bookingDateStartTime) }
+          }
+        ]
+    });
 
-    const dupBooking = await Booking.findOne (reqBooking);
-    if (dupBooking) return res.status(400).send ('Booking Already Added!');
+    if (isOverlap) return res.status(400).send("Car is already booked for this time range.");
 
     const car = await Car.findById (req.body.car_id);
     if (!car) return res.status (404).send ('No Car Found!');
@@ -23,6 +28,15 @@ const addBooking = async function (req, res) {
     car.isAvailable = false;
     await car.save ();
 
+    const reqBooking = {
+        bidding_id: req.body.bidding_id,
+        admin_id: req.user._id,
+        customer_id: req.body.customer_id,
+        car_id: req.body.car_id,
+        bookingDateStartTime: new Date (req.body.bookingDateStartTime),
+        bookingDateEndTime: new Date (req.body.bookingDateEndTime)
+    };
+    
     const booking = new Booking (reqBooking);
     await booking.save();
     res.send ('Booking Added Successfully!');
@@ -34,7 +48,7 @@ const futureBookings = async function (req, res) {
 
     const futureBookings = await Booking.find ({
         customer_id: req.user._id,
-        bookingDate: { $gt: presentTime }
+        bookingDateStartTime: { $gt: presentTime }
     }).sort ({ bookingDate: 1 });
 
     if (!futureBookings.length) return res.status (404).send ('No Bookings in Future!');
@@ -47,31 +61,58 @@ const pastBookings = async function (req, res) {
 
     const pastBookings = await Booking.find ({
         customer_id: req.user._id,
-        bookingDate: { $lte: presentTime }
+        bookingDateEndTime: { $lte: presentTime }
     }).sort ({ bookingDate: -1 });
 
     if (!pastBookings.length) return res.status (404).send ('No Bookings in Past!');
     res.send (pastBookings);
 }
 
-//Remove Booking
+//Remove Booking By ID
 const removeBooking = async function (req, res) {
-    const { error } = validate (req.body);
-    if (error) return res.status(401).send (error.details[0].message);
+    if (!mongoose.Types.ObjectId.isValid (req.body._id)) return res.status (400).send ('Invalid Booking ID!');
 
-    const delBooking = {
-        customer_id: req.user._id,
-        car_id: req.body.car_id,
-        bookingDate: req.body.bookingDate
-    };
+    const car = await Car.findById (req.body.car_id);
+    if (!car) return res.status (404).send ('No Car Found!');
+    
+    car.isAvailable = true;
+    await car.save ();
 
-    const booking = await Booking.findOneAndDelete (delBooking);
+    const booking = await Booking.findByIdAndDelete (req.body._id);
     if (!booking) return res.status(404).send ('Booking Not Found!');
+    res.send ('Booking Deleted Successfully!');   
+}
+
+//Remove All Bookings
+const removeAllBookings = async function (req, res) {
+    if (!mongoose.Types.ObjectId.isValid (req.body.car_id)) return res.status (400).send ('Invalid Car ID!');
+
+    const car_id = req.body.car_id;
+        await Booking.deleteMany ({ car_id: car_id });
 
     res.send ('Booking Deleted Successfully!');   
+}
+
+
+//Get Future Bookings By Admin ID
+const futureBookingsByAdminID = async function (req, res) {
+    const presentTime = new Date();
+
+    const futureBookings = await Booking.find ({
+        admin_id: req.user._id,
+        bookingDateStartTime: { $gt: presentTime }
+    })
+    .populate ('customer_id', 'name email phone')
+    .populate ('car_id', 'brand model year imageURL seatingCapacity pricePerHour')
+    .sort ({ bookingDate: 1 });
+
+    if (!futureBookings.length) return res.status (404).send ('No Bookings For Your Added Cars in Future!');
+    res.send (futureBookings);
 }
 
 module.exports = { addBooking,
                     futureBookings,
                     pastBookings,
-                    removeBooking };
+                    removeBooking,
+                    removeAllBookings,
+                    futureBookingsByAdminID };

@@ -16,8 +16,8 @@ const AdminNavbar = ({ user }) => {
                 <div>
                     <Link to = '/admin/home' className='italic inline-block text-4xl font-extrabold cursor-pointer'>Rentify</Link>
                     <Link to = '/admin/register-car' className='italic text-xl ml-2 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>Register Car</Link>
-                    <Link to = '/incoming-bids' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>Incoming Bids</Link>
-                    <Link to = '/upcoming-bookings' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>Upcoming Bookings</Link>
+                    <Link to = '/admin/incoming-bids' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>Incoming Bids</Link>
+                    <Link to = '/admin/upcoming-bookings' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>Upcoming Bookings</Link>
                     <Link to = '/profile' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>My Profile</Link>
                     <Link to = '/about' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>About</Link>
                 </div>
@@ -39,8 +39,8 @@ const AdminNavbar = ({ user }) => {
                 menuIcon && (
                     <div className='2xl:hidden italic flex flex-col bg-black text-white text-2xl p-10'>
                         <Link to = '/admin/register-car'>Register Car</Link>
-                        <Link to = '/incoming-bids'>Incoming Bids</Link>
-                        <Link to = '/upcoming-bookings'>Upcoming Bookings</Link>
+                        <Link to = '/admin/incoming-bids'>Incoming Bids</Link>
+                        <Link to = '/admin/upcoming-bookings'>Upcoming Bookings</Link>
                         <Link to = '/profile'>My Profile</Link>
                         <Link to = '/about'>About</Link>
                         <button className='text-3xl text-red-700 font-extrabold' onClick={() => LogOut (Navigate)}>Log out</button>

@@ -21,7 +21,7 @@ const addBidding = async function (req, res) {
         _id: req.body.car_id
     }).select ('pricePerHour');
     
-    if (!car) return res.status (404).send ('Car Not Found!');
+    if (!car) return res.status (404).send ('Car Not Found (Deleted By Admin)!');
 
     const hours = (reqBidding.endTime - reqBidding.startTime) / 3600000; 
 
@@ -59,9 +59,9 @@ const getCarBiddingsByAdminID = async function (req, res) {
     const carIDs = cars.map (car => car._id);
     if (!carIDs.length) return res.status (404).send ('No Car Added By User!');
     
-    const biddings = await Bidding.find ({ car_id: { $in: carIDs } })
+    const biddings = await Bidding.find ({ car_id: { $in: carIDs }, status: 'pending' })
                                     .populate ('customer_id', 'name email phone')
-                                    .populate ('car_id', 'brand model year imageURL seatingCapacity')
+                                    .populate ('car_id', 'brand model year imageURL seatingCapacity pricePerHour')
                                     .sort ({ createdAt: -1 });
     if (!biddings.length) return res.status (404).send ('No Biddings for User Added Cars!');
     res.send (biddings);
@@ -95,8 +95,28 @@ const rejectBidding = async function (req, res) {
     res.send ('Bidding Rejected Successfully!');
 }
 
+//Remove All Bidding
+const removeBidding = async function (req, res) {
+    if (!mongoose.Types.ObjectId.isValid (req.body.car_id)) return res.status (400).send ('Invalid Car ID!');
+
+    const car_id = req.body.car_id;
+    await Bidding.deleteMany ({ car_id: car_id });
+
+    res.send ('Bidding Deleted Successfully!');   
+}
+
+//Remove Bidding By Bidding ID
+const removeBiddingByBiddingID = async function (req, res) {
+    if (!mongoose.Types.ObjectId.isValid (req.body._id)) return res.status (400).send ('Invalid Bidding ID!');
+
+    await Bidding.findByIdAndDelete (req.body._id);
+    res.send ('Bidding Deleted Successfully!');   
+}
+
 module.exports = { addBidding,
                     getCarBiddingsByCustomerID,
                     getCarBiddingsByAdminID,
                     approveBidding,
-                    rejectBidding };
+                    rejectBidding,
+                    removeBidding,
+                    removeBiddingByBiddingID };

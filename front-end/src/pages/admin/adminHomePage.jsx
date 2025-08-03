@@ -44,10 +44,17 @@ const AdminHomePage = () => {
             await axios.delete (`${apiEndPoint}/car`, {
                 data: body
             });
+            await axios.delete (`${apiEndPoint}/bidding`, {
+                data: { car_id: CarID }
+            })
+            await axios.delete (`${apiEndPoint}/booking/removeAll`, {
+                data: { car_id: CarID }
+            })
             toast.success ('Car Deleted Successfully!');
         }
         catch (err) {
-            if (err.response && err.reponse.status === 404) toast.error ('No Such Car Found!');
+            console.log (err)
+            if (err.response && err.reponse.status === 404) toast.error (err.response.data);
             else toast.error ('Something went wrong. Try Again!');
             setCars (totalCars);
         }
@@ -103,7 +110,7 @@ const AdminHomePage = () => {
                 ) :
                 (
                     <div className='italic font-bold h-[400px] text-center mt-60 text-2xl text-gray-600'>
-                        No Cars Available for Rental!
+                        No Cars Added for Rental!
                     </div>
                 )
             }

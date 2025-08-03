@@ -44,7 +44,7 @@ const getAvailableCars = async function (req, res) {
 
 //Get Admin Added Cars
 const getAdminAddedCars = async function (req, res) {
-    const cars = await Car.find ({ addedBy: req.user._id, isAvailable: true });
+    const cars = await Car.find ({ addedBy: req.user._id });
     if (!cars.length) return res.status (404).send ('No Cars Added!');
     res.send (cars);
 }

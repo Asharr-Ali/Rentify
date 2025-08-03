@@ -13,6 +13,8 @@ import About from './pages/about';
 import AdminHomePage from './pages/admin/adminHomePage';
 import RegisterCar from './pages/admin/registerCarPage';
 import UpdateCar from './pages/admin/updateCarPage';
+import AdminIncomingBids from './pages/admin/incomingBids';
+import AdminBookingPage from './pages/admin/upcomingBookings';
 
 //Customer Pages
 import CustomerHomePage from './pages/customer/customerHomePage';
@@ -39,10 +41,12 @@ function App() {
         <Route path = "/signup" element = {<SignupPage />} /> 
         <Route path = "/profile" element = {<MyProfile />} /> 
         <Route path = "/about" element = {<About />} /> 
-
+  
         <Route path = "/admin/home" element = {<AdminHomePage />} />        
         <Route path = "/admin/register-car" element = {<RegisterCar />} />        
         <Route path = "/admin/update-car" element = {<UpdateCar />} />   
+        <Route path = "/admin/incoming-bids" element = {<AdminIncomingBids />} />   
+        <Route path = "/admin/upcoming-bookings" element = {<AdminBookingPage />} />   
              
         <Route path = "/customer/home" element = {<CustomerHomePage />} />        
         <Route path = "/customer/bidding-form" element = {<CustomerBiddingForm />} />        

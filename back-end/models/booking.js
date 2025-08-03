@@ -3,8 +3,12 @@ Joi.objectId = require('joi-objectid')(Joi);
 
 function validate (req) {
     const schema = new Joi.object ({
+        bidding_id: Joi.objectId().required(),
+        admin_id: Joi.objectId().required(),
+        customer_id: Joi.objectId().required(),
         car_id: Joi.objectId().required(),
-        bookingDate: Joi.date().required()
+        bookingDateStartTime: Joi.date().required(),
+        bookingDateEndTime: Joi.date().required()
     });
     return schema.validate (req.body);
 }
@@ -12,6 +16,16 @@ function validate (req) {
 const mongoose = require ('mongoose');
 
 const bookingSchema = new mongoose.Schema ({
+    bidding_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Bidding',
+        required: true
+    },
+    admin_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Customer',
+        required: true
+    },
     customer_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Customer',
@@ -22,13 +36,12 @@ const bookingSchema = new mongoose.Schema ({
         ref: 'Car',
         required: true
     },
-    bookingDate: {
+    bookingDateStartTime: {
         type: Date,
-        validate: {
-            validator: function (value) {
-                return value > Date.now();
-            }
-        },
+        required: true        
+    },
+    bookingDateEndTime: {
+        type: Date,
         required: true        
     }
 });
