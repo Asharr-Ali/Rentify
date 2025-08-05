@@ -25,8 +25,8 @@ const CustomerHomePage = () => {
                 setCars (cars);
             }
             catch (err) {
-                if (err.response && err.response === 404) setCars ([]);
-                else toast.error ('Something went wrong. Try Again!');
+                if (err.response?.status === 404) setCars ([]);
+                else toast.error (err.response.data);
             }
         }
         getCars();
@@ -67,7 +67,7 @@ const CustomerHomePage = () => {
                                         <div className='text-xl italic font-bold animate-bounce'>
                                             {car.pricePerHour} $/hour
                                         </div>
-                                        <button onClick={() => Navigate("/customer/bidding-form", { state: { car } })} className='mt-5 hover:bg-gray-700 border rounded-2xl px-3 font-bold cursor-pointer'>Bid this Car</button>
+                                        <button onClick={() => Navigate("/customer/bidding-form", { state: { car } })} className='mt-5 hover:bg-gray-700 text-xl border rounded-2xl px-3 font-bold cursor-pointer'>Bid this Car</button>
                                     </div>
                                 ))
                             }

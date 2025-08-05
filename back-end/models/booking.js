@@ -8,7 +8,8 @@ function validate (req) {
         customer_id: Joi.objectId().required(),
         car_id: Joi.objectId().required(),
         bookingDateStartTime: Joi.date().required(),
-        bookingDateEndTime: Joi.date().required()
+        bookingDateEndTime: Joi.date().required(),
+        bookingPrice: Joi.number().positive().required()
     });
     return schema.validate (req.body);
 }
@@ -43,6 +44,11 @@ const bookingSchema = new mongoose.Schema ({
     bookingDateEndTime: {
         type: Date,
         required: true        
+    },
+    bookingPrice: {
+        type: Number,
+        min: 0,
+        required: true
     }
 });
 

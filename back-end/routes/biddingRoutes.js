@@ -13,11 +13,11 @@ const { addBidding,
         removeBiddingByBiddingID } = require ('../controllers/biddingController');
 
 router.post ('/', [auth, allowRole ('customer')], asyncMiddleware (addBidding));
-router.post ('/getBiddings', auth, asyncMiddleware (getCarBiddingsByCustomerID));
+router.get ('/getBiddings', [auth, allowRole ('customer')], asyncMiddleware (getCarBiddingsByCustomerID));
 router.get ('/', [auth, allowRole ('admin')], asyncMiddleware (getCarBiddingsByAdminID));
 router.post ('/approve', [auth, allowRole ('admin')], asyncMiddleware (approveBidding));
 router.post ('/reject', [auth, allowRole ('admin')], asyncMiddleware (rejectBidding));
 router.delete ('/', [auth, allowRole ('admin')], asyncMiddleware (removeBidding));
-router.delete ('/deleteBiddingByID', [auth, allowRole ('admin')], asyncMiddleware (removeBiddingByBiddingID));
+router.delete ('/deleteBiddingByID', auth, asyncMiddleware (removeBiddingByBiddingID));
 
 module.exports = router;

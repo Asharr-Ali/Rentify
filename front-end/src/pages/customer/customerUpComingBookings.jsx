@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-import AdminNavbar from "../../components/adminNavbar";
+import CustomerNavbar from "../../components/customerNavbar";
 import Footer from "../../components/footer";
 
 import { decodeToken } from "../../components/services/decodeToken";
-import AdminAuth from './adminAuth';
+import CustomerAuth from "./customerAuth";
 import ScrollToTop from '../../components/services/scrollToTop'
 
 const apiEndPoint = 'http://localhost:4000/api';
 
-const AdminBookingPage = () => {
-    const user = AdminAuth ();
+const CustomerBookingPage = () => {
+    const user = CustomerAuth ();
     if (!user) return null;
     
     const [bookings, setBookings] = useState ([]);
@@ -20,7 +20,8 @@ const AdminBookingPage = () => {
     useEffect (() => {
         async function getBookings () {
             try {
-                const { data: bookings } = await axios.get (`${apiEndPoint}/booking/admin/future`);
+                const { data: bookings } = await axios.get (`${apiEndPoint}/booking/future`);
+                console.log (bookings)
                 setBookings (bookings); 
             }
             catch (err) {
@@ -59,12 +60,12 @@ const AdminBookingPage = () => {
         <>
             <ScrollToTop />
             <div className="fixed top-0 left-0 w-full z-50 bg-white shadow">
-                <AdminNavbar user = {decodeToken()} />
+                <CustomerNavbar user = {decodeToken()} />
             </div>
             {
                 bookings.length ? (
                     <React.Fragment>
-                        <div className='italic mt-28 text-4xl text-center font-extrabold'>Upcoming Bookings of Your Added Cars</div>
+                        <div className='italic mt-28 text-4xl text-center font-extrabold'>Upcoming Bookings</div>
                         <div className='m-10 md:m-10 grid md:grid-cols-2 lg:grid-cols-3 gap-10'>
                             {
                                 bookings.map (booking => (
@@ -80,15 +81,6 @@ const AdminBookingPage = () => {
                                         </div>
                                         <div className='text-xl mt-2 italic animate-pulse'>
                                             {booking.car_id.pricePerHour} $/hour
-                                        </div>
-                                        <div className='md:text-xl italic mt-5'>
-                                            {booking.customer_id.name}
-                                        </div>
-                                        <div className='md:text-xl text-justify italic font-sans'>
-                                            {booking.customer_id.email}
-                                        </div>
-                                        <div className='text-xl italic'>
-                                            {booking.customer_id.phone}
                                         </div>
                                         <div className='md:text-xl mt-5'>
                                             <span className='italic font-semibold'>Start Time : </span>
@@ -114,7 +106,7 @@ const AdminBookingPage = () => {
                 ) :
                 (
                     <div className='italic font-bold h-[400px] text-center mt-60 text-2xl text-gray-600'>
-                        No Bookings For your Cars Added!
+                        No Bookings Made...Try Bidding More Cars!
                     </div>
                 )
             }
@@ -123,4 +115,4 @@ const AdminBookingPage = () => {
     );
 }
  
-export default AdminBookingPage;
+export default CustomerBookingPage;

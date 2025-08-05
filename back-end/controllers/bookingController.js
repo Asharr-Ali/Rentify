@@ -8,6 +8,7 @@ const mongoose = require ('mongoose');
 //Add Booking
 const addBooking = async function (req, res) {
     const { error } = validate (req.body);
+    console.log (error)
     if (error) return res.status(400).send (error.details[0].message);
 
     const isOverlap = await Booking.findOne({
@@ -34,7 +35,8 @@ const addBooking = async function (req, res) {
         customer_id: req.body.customer_id,
         car_id: req.body.car_id,
         bookingDateStartTime: new Date (req.body.bookingDateStartTime),
-        bookingDateEndTime: new Date (req.body.bookingDateEndTime)
+        bookingDateEndTime: new Date (req.body.bookingDateEndTime),
+        bookingPrice: req.body.bookingPrice
     };
     
     const booking = new Booking (reqBooking);
@@ -49,7 +51,9 @@ const futureBookings = async function (req, res) {
     const futureBookings = await Booking.find ({
         customer_id: req.user._id,
         bookingDateStartTime: { $gt: presentTime }
-    }).sort ({ bookingDate: 1 });
+    })
+    .populate ('car_id', 'brand model year imageURL seatingCapacity pricePerHour')
+    .sort ({ bookingDate: 1 });
 
     if (!futureBookings.length) return res.status (404).send ('No Bookings in Future!');
     res.send (futureBookings);
@@ -92,7 +96,6 @@ const removeAllBookings = async function (req, res) {
 
     res.send ('Booking Deleted Successfully!');   
 }
-
 
 //Get Future Bookings By Admin ID
 const futureBookingsByAdminID = async function (req, res) {

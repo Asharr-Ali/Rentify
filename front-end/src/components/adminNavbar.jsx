@@ -28,7 +28,7 @@ const AdminNavbar = ({ user }) => {
                 </div>
             </div>
             <div className='2xl:hidden p-4 bg-black flex justify-between text-white'>
-                <Link to = '/' className='italic text-3xl font-bold cursor-pointer'>
+                <Link to = '/admin/home' className='italic text-3xl font-bold cursor-pointer'>
                     Rentify
                 </Link>
                 <span className='hidden italic sm:inline-block sm:text-3xl mr-10 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800 font-extrabold'>{user.name}</span>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { FaBars, FaTimes } from "react-icons/fa";
 
@@ -15,9 +15,9 @@ const CustomerNavbar = ({ user }) => {
             <div className='hidden 2xl:p-4 2xl:text-white 2xl:bg-black 2xl:flex 2xl:justify-between'>
                 <div>
                     <Link to = '/customer/home' className='italic inline-block text-4xl font-extrabold cursor-pointer'>Rentify</Link>
-                    <Link to = '/pending-bids' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>Pending Bids</Link>
-                    <Link to = '/upcoming-bookings' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>Upcoming Bookings</Link>
-                    <Link to = '/booking-history' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>Booking History</Link>
+                    <Link to = '/customer/pending-bids' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>Pending Bids</Link>
+                    <Link to = '/customer/future-bookings' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>Upcoming Bookings</Link>
+                    <Link to = '/customer/booking-history' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>Booking History</Link>
                     <Link to = '/profile' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>My Profile</Link>
                     <Link to = '/about' className='italic text-xl ml-1 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800'>About</Link>
                 </div>
@@ -28,7 +28,7 @@ const CustomerNavbar = ({ user }) => {
                 </div>
             </div>
             <div className='2xl:hidden p-4 bg-black flex justify-between text-white'>
-                <Link to = '/' className='italic text-3xl font-bold cursor-pointer'>
+                <Link to = '/customer/home' className='italic text-3xl font-bold cursor-pointer z-50'>
                     Rentify
                 </Link>
                 <span className='hidden italic sm:inline-block sm:text-3xl mr-10 px-2 py-0.5 cursor-pointer border rounded-2xl border-black hover:bg-gray-800 font-extrabold'>{user.name}</span>
@@ -38,9 +38,9 @@ const CustomerNavbar = ({ user }) => {
             {
                 menuIcon && (
                     <div className='2xl:hidden italic flex flex-col bg-black text-white text-2xl p-10'>
-                        <Link to = '/incoming-bids'>Incoming Bids</Link>
-                        <Link to = '/upcoming-bookings'>Upcoming Bookings</Link>
-                        <Link to = '/booking-history'>Booking History</Link>
+                        <Link to = '/customer/pending-bids'>Pending Bids</Link>
+                        <Link to = '/customer/future-bookings'>Upcoming Bookings</Link>
+                        <Link to = '/customer/booking-history'>Booking History</Link>
                         <Link to = '/profile'>My Profile</Link>
                         <Link to = '/about'>About</Link>
                         <button className='text-3xl text-red-700 font-extrabold' onClick={() => LogOut (Navigate)}>Log out</button>

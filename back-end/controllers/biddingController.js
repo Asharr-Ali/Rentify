@@ -42,10 +42,10 @@ const addBidding = async function (req, res) {
 
 //Get Car Biddings of a Particular Customer 
 const getCarBiddingsByCustomerID = async function (req, res) {
-    if (!mongoose.Types.ObjectId.isValid (req.body._id)) return res.status (400).send ('Invalid Customer ID!');
+    if (!mongoose.Types.ObjectId.isValid (req.user._id)) return res.status (400).send ('Invalid Customer ID!');
 
-    const biddings = await Bidding.find ({ customer_id: req.body._id })
-                    .populate ('car_id', 'brand model year imageURL seatingCapacity')
+    const biddings = await Bidding.find ({ customer_id: req.user._id })
+                    .populate ('car_id', 'brand model year imageURL seatingCapacity transmission fuelType')
                     .sort ({ createdAt: -1 });
     
     if (!biddings.length) return res.status (404).send ('No Bidding found for this Customer!');

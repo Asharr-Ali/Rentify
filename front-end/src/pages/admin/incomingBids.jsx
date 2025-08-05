@@ -38,7 +38,8 @@ const AdminIncomingBids = () => {
             customer_id: Bidding.customer_id._id,
             car_id: Bidding.car_id._id,
             bookingDateStartTime: Bidding.startTime, 
-            bookingDateEndTime: Bidding.endTime 
+            bookingDateEndTime: Bidding.endTime,
+            bookingPrice: Bidding.biddingPrice
         }
         const BiddingID = Bidding._id;
         const filteredBiddings = biddings.filter (b => b._id !== BiddingID);
