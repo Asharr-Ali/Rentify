@@ -15,12 +15,6 @@ module.exports = function () {
     // Log to file
     winston.add(new winston.transports.File({ filename: 'logfile.log' }));
 
-    // Log to MongoDB
-    winston.add(new winston.transports.MongoDB({
-        db: 'mongodb://localhost/rentify',
-        level: 'error'
-    }));
-
     // Console
     winston.add(new winston.transports.Console({
         format: winston.format.combine(
