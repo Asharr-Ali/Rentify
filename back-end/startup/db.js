@@ -3,7 +3,7 @@ const winston = require ('winston');
 
 //Connecting to MongoDB
 module.exports = function () {
-    const db = 'mongodb+srv://asharalihabib2003:Zamam12345@rentify.qgtz7gh.mongodb.net/Rentify?retryWrites=true&w=majority&appName=Rentify';
+    const db = 'mongodb+srv://itz_asharr_ali:Zamam12345@cluster0.zivbtsg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
     mongoose.connect(db, {
         useNewUrlParser: true,
