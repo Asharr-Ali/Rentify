@@ -9,7 +9,7 @@ import { decodeToken } from "../../components/services/decodeToken";
 import AdminAuth from './adminAuth';
 import ScrollToTop from '../../components/services/scrollToTop'
 
-const apiEndPoint = 'http://localhost:4000/api';
+const apiEndPoint = 'https://rentify-qnpw.onrender.com/api';
 
 const AdminBookingPage = () => {
     const user = AdminAuth ();

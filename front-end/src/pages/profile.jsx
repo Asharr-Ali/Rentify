@@ -11,7 +11,7 @@ import Footer from "../components/footer";
 import { decodeToken } from "../components/services/decodeToken";
 import ScrollToTop from '../components/services/scrollToTop'
 
-const apiEndPoint = 'http://localhost:4000/api';
+const apiEndPoint = 'https://rentify-qnpw.onrender.com/api';
 
 const MyProfile = () => {
     const [user, setUser] = useState ({});

@@ -8,7 +8,7 @@ import AdminAuth from './adminAuth';
 import useCarForm from '../../components/services/useCarInfo';
 import CarPageUI from '../../components/services/carPageUI';
 
-const apiEndPoint = 'http://localhost:4000/api';
+const apiEndPoint = 'https://rentify-qnpw.onrender.com/api';
 
 const UpdateCar = () => {
     const Location = useLocation();

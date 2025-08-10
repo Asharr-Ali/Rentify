@@ -10,7 +10,7 @@ import { decodeToken } from '../../components/services/decodeToken';
 import CustomerAuth from './customerAuth';
 import ScrollToTop from '../../components/services/scrollToTop';
 
-const apiEndPoint = 'http://localhost:4000/api';
+const apiEndPoint = 'https://rentify-qnpw.onrender.com/api';
 
 const CustomerBiddingForm = () => {
     const user = CustomerAuth();

@@ -8,7 +8,7 @@ import Footer from '../../components/footer';
 
 import AdminAuth from './adminAuth';
 
-const apiEndPoint = 'http://localhost:4000/api';
+const apiEndPoint = 'https://rentify-qnpw.onrender.com/api';
 
 const AdminHomePage = () => {
     const Navigate = useNavigate ();
