@@ -45,11 +45,11 @@ The system supports **two roles**:
 ---
 
 ## 🛠 Suggested Tech Stack
-- 🎨 **Frontend:** React.js / Next.js
+- 🎨 **Frontend:** React.js
 - ⚙️ **Backend:** Node.js (Express)
-- 🗄 **Database:** MongoDB / PostgreSQL
-- 🔐 **Authentication:** JWT / OAuth2
-- ☁️ **Deployment:** Vercel, Heroku, or AWS
+- 🗄 **Database:** MongoDB
+- 🔐 **Authentication:** JWT
+- ☁️ **Deployment:** Vercel, Render, or MongoDB Altas
 
 ---
 
